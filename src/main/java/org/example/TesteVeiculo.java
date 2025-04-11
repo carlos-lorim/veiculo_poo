@@ -1,23 +1,40 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.Scanner;
+
 public class TesteVeiculo {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        // Cria um veiculo que suporta a carga de 10.000 kg
-        System.out.println("Criando um veículo com carga máxima de 10.000kg");
-        Veiculo veiculo = new Veiculo(10000.0);
+        // Criando o veículo
+        System.out.print("Digite a carga máxima do veículo (em kg): ");
+        double cargaMaxima = scanner.nextDouble();
+        Veiculo veiculo = new Veiculo(cargaMaxima);
+        System.out.println("Veículo criado com carga máxima de " + cargaMaxima + " kg");
 
-        // Adicionando algumas caixas
-        System.out.println("Adicionando caixa número 1 (500kg) : " + veiculo.adicionarCaixa(500.0));
-        System.out.println("Adicionando caixa número 2 (250kg) : " + veiculo.adicionarCaixa(250.0));
-        System.out.println("Adicionando caixa número 3 (5000kg) : " + veiculo.adicionarCaixa(5000.0));
-        System.out.println("Adicionando caixa número 4 (4000kg) : " + veiculo.adicionarCaixa(4000.0));
-        System.out.println("Adicionando caixa número 5 (300kg) : " + veiculo.adicionarCaixa(300.0));
+        int numeroCaixa = 1;
+        String continuar;
 
-        // Exibindo a carga total do veículo
-        System.out.println("A carga do veiculo é: " + veiculo.getCarga() + " kg");
+        do {
+            // Lê o peso da caixa
+            System.out.print("Digite o peso da caixa número " + numeroCaixa + " (em kg): ");
+            double pesoCaixa = scanner.nextDouble();
 
+            // Tenta adicionar a caixa
+            boolean resultado = veiculo.adicionarCaixa(pesoCaixa);
+            System.out.println("Adicionando caixa número " + numeroCaixa + " (" + pesoCaixa + "kg): " + resultado);
+
+            numeroCaixa++;
+
+            // Pergunta se deseja continuar
+            System.out.print("Deseja adicionar outra caixa? (s/n): ");
+            continuar = scanner.next();
+
+        } while (continuar.equalsIgnoreCase("s"));
+
+        // Exibe carga final
+        System.out.println("A carga do veículo é: " + veiculo.getCarga() + " kg");
+
+        scanner.close();
     }
 }
